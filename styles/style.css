@@ -1,0 +1,40 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body{
+  text-align: center;
+}
+
+div {
+  font-size: 24px;
+  padding: 10px 0;
+}
+
+.container{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btnrock, .btnpaper, .btnscissors{
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 255);
+}
+
+.btnrock:hover,
+.btnpaper:hover, 
+.btnscissors:hover
+{
+  background-color: royalblue;
+  transition: all 0.4s;
+  color: white;
+}

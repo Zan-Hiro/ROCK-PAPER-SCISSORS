@@ -1,91 +1,100 @@
-'use strict';
+  'use strict';
 
-alert("Hello, world.\nThis is Rock Paper Scissors Game on the console.");
+  //Get html classes
+  const yourChoice = document.querySelector('.yourChoice');
+  const computerSelect = document.querySelector('.computerChoice');
+  const yourScoreDiv = document.querySelector('.yourscore');
+  const computerScoreDiv = document.querySelector('.computerscore');
+  const gameResult = document.querySelector('.game-result');
 
-let playerTotalScore = 0;
-let computerTotalScore = 0;
+  //Score Variables
+  let playerChoice = "";
+  let playerScore = 0;
+  let computerScore = 0;
+  let playerTotalScore = 0;
+  let computerTotalScore = 0;
 
+  //Player and Computer selection Variables
+  const playerSelection = playerChoice;
 
-function game() {
-    const playerSelection = playerPlay();
-    const computerSelection = computerPlay();
+  //Play game function
+  function Game() {
+    window.addEventListener('click', e => {
 
-    //player choice funciton
-    function playerPlay() {
-      const playerChoice =  prompt("Please enter the words of 'Rock' or 'Paper' or 'Scissors'. \nUppercase Lowercase Capitalize all OK\nGame continues five times");
-      return capitalizeWords(playerChoice);
+      if(e.target.className === "container") return;
+    
+      const buttons = document.querySelector(`.${e.target.className}`);
+  
+      if(buttons.className === "btnrock") {
+        playerChoice = "Rock";
+        yourChoice.innerText = playerChoice;
+      } else if(buttons.className === "btnpaper") {
+        playerChoice = "Paper";
+        yourChoice.innerText = playerChoice;
+      } else if(buttons.className === "btnscissors") {
+        playerChoice = "Scissors";
+        yourChoice.innerText = playerChoice;
+      }
+
+      const computerChoice = ['Rock', 'Paper', 'Scissors'];
+      const computerSelection = computerChoice[Math.floor(Math.random()*computerChoice.length)];
+      computerSelect.innerText = computerSelection;
+
+      if((yourChoice.innerText === "Rock" && computerSelect.innerText === "Rock") || (yourChoice.innerText === "Paper" && computerSelect.innerText === "Paper") || (yourChoice.innerText === "Scissors" && computerSelect.innerText === "Scissors" )) {
+        playerScore += 0;
+        computerScore += 0;
+
+        yourScoreDiv.innerText = playerScore;
+        computerScoreDiv.innerText = computerScore;
+
+        gameResult.style.color = "green";
+        gameResult.innerText = "Game is Draw!";
+
+      } 
+      
+      if(yourChoice.innerText === "Rock" && computerSelect.innerText === "Paper" || yourChoice.innerText === "Paper" && computerSelect.innerText === "Scissors" || yourChoice.innerText === "Scissors" && computerSelect.innerText === "Rock") {
+      
+      computerScore++;
+
+      yourScoreDiv.innerText = playerScore;
+      computerScoreDiv.innerText = computerScore;
+    
+      computerTotalScore = computerScore;
+
+      gameResult.style.color = 'red'; 
+      gameResult.innerText = "You Lose!";
+      } 
+      
+      if(yourChoice.innerText === "Rock" && computerSelect.innerText === "Scissors" || yourChoice.innerText === "Paper" && computerSelect.innerText === "Rock" || yourChoice.innerText === "Scissors" && computerSelect.innerText === "Paper"){
+      playerScore++;
+    
+      playerTotalScore = playerScore;
+
+      yourScoreDiv.innerText = playerScore;
+      computerScoreDiv.innerText = computerScore;
+
+      gameResult.style.color = "blue";
+      gameResult.innerText = "You Win!";
     }
-      
-        
-      //change the play choice of captalize
-      function capitalizeWords(str) {
-        let getCapitalizedSentence = str[0].toUpperCase() + str.slice(1).toLowerCase();
-        return getCapitalizedSentence;
+
+    if(playerTotalScore === 5 || computerTotalScore === 5) {
+      if (playerTotalScore === 5) {
+        gameResult.style.color = "blue";
+        gameResult.innerText = "Game is Over. Congratulation! You win!";
+      } else if (computerTotalScore === 5) {
+        gameResult.style.color = "red";
+        gameResult.innerText = "Game is Over. Sorry. You lose...";
       }
-      
-      //computer choice function
-      function computerPlay() {
-        const computerChoice = ['Rock', 'Paper', 'Scissors'];
-        return computerChoice[Math.floor(Math.random()*computerChoice.length)];
-      }
-      
-      //game round function only one time
-      function playRound(playerSelection, computerSelection) {
-        let playerScore = 0;
-        let computerScore = 0;
-          if(playerSelection === "Rock" && computerSelection === "Rock" || playerSelection === "Paper" && computerSelection === "Paper" || playerSelection === "Scissors" && computerSelection === "Scissors" ) {
-            console.log("Your selection is :" + playerSelection + " Computer Selection is : " + computerSelection + " So, Game is Draw!");
-          } else if(playerSelection === "Rock" && computerSelection === "Paper" || playerSelection === "Paper" && computerSelection === "Scissors" || playerSelection === "Scissors" && computerSelection === "Rock") {
-            computerScore++;
-            
-            computerTotalScore += computerScore;
-            
-            console.log("Your selection is :" + playerSelection + " Computer Selection is : " + computerSelection + " So, You Lose!");
-          } else if(playerSelection === "Rock" && computerSelection === "Scissors" || playerSelection === "Paper" && computerSelection === "Rock" || playerSelection === "Scissors" && computerSelection === "Paper"){
-            playerScore++;
-  
-            playerTotalScore += playerScore;
-  
-            console.log("Your selection is :" + playerSelection + " Computer Selection is : " + computerSelection +  " So, You Win!");
-          } 
-          else if(playerSelection !== "Rock" || playerSelection !== "Paper" ||  playerSelection !== "Scissors"){
-              prompt("Please enter the words of 'Rock' or 'Paper' or 'Scissors'.\nUppercase Lowercase Capitalize all OK. \n But another words don't accept the game.");        
-          } 
+      resetScore();
+    }
+  });
+}
 
-        }
-      playRound(playerSelection, computerSelection);
-    } 
+function resetScore() {
+  playerScore = 0;
+  computerScore = 0;
+  playerTotalScore = 0;
+  computerTotalScore = 0;
+}
 
-  game(); 
-  console.log("playerScore is : " + playerTotalScore);
-  console.log("computerScore is : " + computerTotalScore);
-  
-  game(); 
-  console.log("playerScore is : " + playerTotalScore);
-  console.log("computerScore is : " + computerTotalScore);
-  
-  game(); 
-  console.log("playerScore is : " + playerTotalScore);
-  console.log("computerScore is : " + computerTotalScore);
-  
-  game(); 
-  console.log("playerScore is : " + playerTotalScore);
-  console.log("computerScore is : " + computerTotalScore);
-  
-  game(); 
-  console.log("playerScore is : " + playerTotalScore);
-  console.log("computerScore is : " + computerTotalScore);
-  
-  game(); 
-  console.log("TotalplayerScore is : " + playerTotalScore);
-  console.log("TotalcomputerScore is : " + computerTotalScore);
-
-  if (playerTotalScore > computerTotalScore) {
-    console.log("Congratulation! You win!");
-  } else if (playerTotalScore === computerTotalScore) {
-    console.log("Oh, You Draw!");
-  } else if (playerTotalScore < computerTotalScore) {
-    console.log("Oh, sorry. You lose...");
-  }
-
-  alert("Game is over. Thank you for playing!");
+  Game();
